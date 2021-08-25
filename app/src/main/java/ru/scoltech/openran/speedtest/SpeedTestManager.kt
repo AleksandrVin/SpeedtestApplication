@@ -220,7 +220,7 @@ private constructor(
                                     "-f b -P 10 --sum-only -i 0.1 -b 120m $additionalClientArgs"
                         )
                         idleTaskKiller.register(IPERF_IDLE_TIME) {
-                            iperfRunner.sendSigKill()
+                            iperfRunner.sendSigInt()
                         }
                         break
                     } catch (e: InterruptedException) {
@@ -242,7 +242,7 @@ private constructor(
         }
 
         try {
-            iperfRunner.sendSigKill()
+            iperfRunner.sendSigInt()
         } catch (e: IperfException) {
             lock.withLock {
                 stopWithFatalError("Could not send SIGKILL to iPerf", e)
